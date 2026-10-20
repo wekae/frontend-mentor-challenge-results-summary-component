@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  
+  <title>Frontend Mentor | Results summary component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style type="text/scss" id="scss">
+    @use "sass:map";
+    $bg: #ecf2ff;
+
+    $primary-light-red: hsl(0, 100%, 67%);
+    $primary-orangey-yellow: hsl(30, 100%, 56%);
+    $primary-green-teal: hsl(166, 100%, 37%);
+    $primary-cobalt-blue: hsl(234, 85%, 45%);
+
+    $light-slate-blue: hsl(252, 100%, 67%);
+    $light-royal-blue: hsl(241, 81%, 54%);
+
+    $violet-blue: hsla(256, 72%, 46%, 1);
+    $persian-blue: hsla(241, 72%, 46%, 0);
+
+    $neutral-white: hsl(0, 0%, 100%);
+    $neutral-pale-blue: hsl(221, 100%, 96%);
+    $neutral-light-lavender: hsl(241, 100%, 89%);
+    $neutral-dark-gray-blue: hsl(224, 30%, 27%);
+
+    $neutral-white: hsl(0, 0%, 100%);
+    $neutral-pale-blue: hsl(221, 100%, 96%);
+    $neutral-light-lavender: hsl(241, 100%, 89%);
+    $neutral-light-lavender-30: hsla(241, 100%, 89%, 0.3);
+    $neutral-light-lavender-40: hsla(241, 100%, 89%, 0.4);
+    $neutral-light-lavender-50: hsla(241, 100%, 89%, 0.5);
+    $neutral-light-lavender-60: hsla(241, 100%, 89%, 0.6);
+    $neutral-light-lavender-70: hsla(241, 100%, 89%, 0.7);
+    $neutral-light-lavender-80: hsla(241, 100%, 89%, 0.8);
+    $neutral-light-lavender-90: hsla(241, 100%, 89%, 0.9);
+    $neutral-dark-gray-blue-30: hsla(224, 30%, 27%, 0.3);
+    $neutral-dark-gray-blue-40: hsla(224, 30%, 27%, 0.4);
+    $neutral-dark-gray-blue-50: hsla(224, 30%, 27%, 0.5);
+    $neutral-dark-gray-blue-60: hsla(224, 30%, 27%, 0.6);
+    $neutral-dark-gray-blue-70: hsla(224, 30%, 27%, 0.7);
+    $neutral-dark-gray-blue-80: hsla(224, 30%, 27%, 0.8);
+    $neutral-dark-gray-blue-90: hsla(224, 30%, 27%, 0.9);
+
+
+
+    $font-xs: 12px;
+    $font-sm: 14px;
+    $font-md: 18px;
+    $font-lg: 22px;
+    $font-xl: 32px;
+    $font-2xl: 48px;
+    $font-3xl: 46px;
+    $font-4xl: 64px;
+    $font-500: 500;
+    $font-700: 700;
+    $font-800: 800;
+
+    $padding-sm: 4px;
+    $padding-md: 8px;
+    $padding-lg: 16px;
+    $padding-xl: 24px;
+    $padding-2xl: 32px;
+    $padding-3xl: 48px;
+
+    $margin-sm: 4px;
+    $margin-md: 8px;
+    $margin-lg: 16px;
+    $margin-xl: 24px;
+    $margin-2xl: 32px;
+    $margin-3xl: 48px;
+
+    $breakpoints: ( mobile: 375px, desktop: 1440px );
+
+    @mixin breakpoint($breakpoint) {
+      $width: map.get($breakpoints, $breakpoint);
+
+      @if $width {
+        @media(min-width: $width) {
+          @content;
+        }
+      } @else {
+        @warn "Breakpoint not supported #{$breakpoint}";
+      }
+    }
+
+    $card-variants: (
+      default: (bg: hsl(0, 0%, 100%), text: hsl(224, 30%, 27%)),
+      reaction: (bg: hsla(0, 100%, 67%, 0.08), text: hsla(0, 100%, 67%, 0.8)),
+      memory: (bg: hsla(30, 100%, 56%, 0.08), text: hsla(30, 100%, 56%, 0.8)),
+      verbal: (bg: hsla(166, 100%, 37%, 0.08), text: hsla(166, 100%, 37%, 0.8)),
+      visual: (bg: hsla(234, 85%, 45%, 0.08), text: hsla(234, 85%, 45%, 0.8)),
+    ) !default;
+
+    @mixin card-variant($variant){
+      --card-bg: #{map.get($variant, bg)};
+      --card-text: #{map.get($variant, text)};
+    }
+
+
+
+
+    @mixin vertical-gradient($top, $bottom){
+      background: $top;
+      background: linear-gradient(to bottom, $top, $bottom);
+    }
+
+    @mixin circle-gradient($inner, $outer){
+      background: $inner;
+      background: radial-gradient(circle, $inner, $outer);
+    }
+
+    .container{
+      width: 100vw;
+      min-height: 100vh;
+      background-color: $bg;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Hanken-Grotesk", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+    }
+
+    .layout{
+      background: $neutral-white;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+
+      @include breakpoint(desktop){
+        width: min-content;
+        min-height: unset;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        flex-direction: unset;
+        align-items: unset;
+        justify-content: unset;
+        border-radius: 18px;
+
+        box-shadow: 15px 10px 42px -12px $neutral-dark-gray-blue-30;
+        -webkit-box-shadow: 15px 10px 42px -12px $neutral-dark-gray-blue-30;
+        -moz-box-shadow: 15px 10px 42px -12px $neutral-dark-gray-blue-30;
+      }
+    }
+
+    .result{
+      @include vertical-gradient($light-slate-blue, $light-royal-blue);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      padding: $padding-md $padding-lg;
+      overflow: hidden;
+      box-sizing: border-box;
+      border-bottom-right-radius: 24px;
+      border-bottom-left-radius: 24px;
+      margin: 0;
+      @include breakpoint(desktop){
+        max-width: 270px;
+        border-radius: 18px;
+      }
+
+      &-title{
+        font-weight: $font-800;
+        color: $neutral-light-lavender-90;
+        padding: $padding-xl;
+      }
+
+      &-total{
+        @include vertical-gradient($violet-blue, $persian-blue);
+        margin: $margin-md;
+        width: 130px;
+        height: 130px;
+        border-radius: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .total{
+          &-percentage{
+            font-size: $font-2xl;
+            font-weight: $font-800;
+            color: $neutral-white;
+          }
+          &-of{
+            font-size: $font-sm;
+            font-weight: $font-700;
+            color: $light-slate-blue;
+          }
+        }
+      }
+
+      &-description{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .title{
+          margin: $margin-lg;
+          font-size: $font-lg;
+          color: $neutral-white;
+          font-weight: $font-800;
+        }
+        .description{
+          margin: 0 $margin-lg $margin-2xl;
+          color: $neutral-light-lavender-70;
+          font-weight: $font-700;
+          text-align: center;
+          font-size: $font-sm;
+        }
+      }
+    }
+
+    .summary{
+      background: $neutral-white;
+      box-sizing: border-box;
+      padding: $padding-2xl;
+      width: 100vw;
+      @include breakpoint(desktop){
+        max-width: 260px;
+        border-radius: 18px;
+      }
+
+      &-title{
+        color: $neutral-dark-gray-blue;
+        font-size: $font-md;
+        font-weight: $font-800;
+      }
+
+      &-cards{
+        box-sizing: border-box;
+        margin-top: $margin-lg;
+        margin-bottom: $margin-lg;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: $padding-lg;
+      }
+
+      &-card{
+        box-sizing: border-box;
+        @include card-variant(map.get($card-variants, default));
+        background: var(--card-bg);
+        color: var(--card-text);
+        width: 100%;
+        border-radius: 8px;
+        padding: $padding-md;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: $padding-sm;
+        font-size: $font-sm;
+        font-weight: $font-800;
+
+        @each $name, $variant in $card-variants {
+          @if $name != default {
+            &--#{$name}{
+              @include card-variant($variant);
+            }
+          }
+        }
+
+        .heading{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: $padding-md;
+          .icon{
+            img{
+             width: 16px;
+              padding-top: $padding-sm;
+            }
+          }
+          .description{
+            font-size: $font-sm;
+          }
+        }
+        .score{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          font-size: $font-sm;
+          gap: $padding-md;
+          &-percentage{
+            color: $neutral-dark-gray-blue-90;
+          }
+          &-of{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: $padding-md;
+            color: $neutral-dark-gray-blue-60;
+          }
+        }
+      }
+
+      .cta{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 30px;
+        background: $neutral-dark-gray-blue;
+        padding: 14px 0;
+        font-size: $font-sm;
+        font-weight: $font-700;
+        color: $neutral-pale-blue;
+        &:hover{
+          @include vertical-gradient($light-slate-blue, $light-royal-blue);
+        }
+      }
+    }
+
+    .attribution { position: fixed; bottom: 5px; font-size: 0.6875rem; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "immutable": "https://unpkg.com/immutable@^4.0.0",
+        "sass": "https://unpkg.com/sass@^1.63.0/sass.default.js"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as sass from 'sass';
+
+    const source = document.getElementById('scss').textContent;
+    const { css } = sass.compileString(source);
+
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.append(style);
+  </script>
+</head>
+<body class="container">
+  <div class="layout">
+    <div class="result">
+      <div class="result-title">
+        Your Result
+      </div>
+      <div class="result-total">
+        <div class="total-percentage">76</div>
+        <div class="total-of">of 100</div>
+      </div>
+      <div class="result-description">
+        <div class="title">
+          Great
+        </div>
+        <div class="description">
+          You scored higher than 65% of the people who have taken these tests.
+        </div>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-title">
+        Summary
+      </div>
+
+      <div class="summary-cards">
+
+        <div class="summary-card summary-card--reaction">
+          <div class="heading">
+            <div class="icon">
+              <img src="./assets/images/icon-reaction.svg" alt="">
+            </div>
+            <div class="description">
+              Reaction
+            </div>
+          </div>
+          <div class="score">
+            <div class="score-percentage">
+              80
+            </div>
+            <div class="score-of">
+              <span>/</span>
+              <span>100</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card summary-card--memory">
+          <div class="heading">
+            <div class="icon">
+              <img src="./assets/images/icon-memory.svg" alt="">
+            </div>
+            <div class="description">
+              Memory
+            </div>
+          </div>
+          <div class="score">
+            <div class="score-percentage">
+              92
+            </div>
+            <div class="score-of">
+              <span>/</span>
+              <span>100</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card summary-card--verbal">
+          <div class="heading">
+            <div class="icon">
+              <img src="./assets/images/icon-verbal.svg" alt="">
+            </div>
+            <div class="description">
+              Verbal
+            </div>
+          </div>
+          <div class="score">
+            <div class="score-percentage">
+              61
+            </div>
+            <div class="score-of">
+              <span>/</span>
+              <span>100</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card summary-card--visual">
+          <div class="heading">
+            <div class="icon">
+              <img src="./assets/images/icon-visual.svg" alt="">
+            </div>
+            <div class="description">
+              Visual
+            </div>
+          </div>
+          <div class="score">
+            <div class="score-percentage">
+              72
+            </div>
+            <div class="score-of">
+              <span>/</span>
+              <span>100</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="cta">
+        Continue
+      </div>
+    </div>
+  </div>
+  
+  <footer class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </footer>
+</body>
+</html>
