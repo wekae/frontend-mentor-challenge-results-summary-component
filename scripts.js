@@ -1,7 +1,7 @@
 const container = document.querySelector(".summary-cards");
 
 function createCard({category, score, icon}){
-    const card = document.createElement("div");
+    const card = document.createElement("li");
     card.className = `summary-card summary-card--${category.toLowerCase()}`;
 
     const innerHtml = `

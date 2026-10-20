@@ -195,6 +195,9 @@
       }
 
       &-title{
+        font-size: $font-md;
+        line-height: $font-md;
+        margin: 0;
         font-weight: $font-800;
         color: $neutral-light-lavender-90;
         padding: $padding-xl;
@@ -203,8 +206,8 @@
       &-total{
         @include vertical-gradient($violet-blue, $persian-blue);
         margin: $margin-md;
-        width: 130px;
-        height: 130px;
+        width: 140px;
+        height: 140px;
         border-radius: 100%;
         display: flex;
         flex-direction: column;
@@ -212,14 +215,22 @@
         justify-content: center;
         .total{
           &-percentage{
-            font-size: $font-2xl;
             font-weight: $font-800;
             color: $neutral-white;
+            h2{
+              font-size: $font-2xl;
+              line-height: $font-2xl;
+              margin: 0;
+            }
           }
           &-of{
-            font-size: $font-sm;
-            font-weight: $font-700;
             color: $light-slate-blue;
+            p{
+              font-size: $font-sm;
+              line-height: $font-sm;
+              font-weight: $font-700;
+              margin: 4px;
+            }
           }
         }
       }
@@ -231,16 +242,23 @@
         justify-content: center;
         .title{
           margin: $margin-lg;
-          font-size: $font-lg;
-          color: $neutral-white;
-          font-weight: $font-800;
+          h3{
+            font-size: $font-lg;
+            line-height: $font-lg;
+            color: $neutral-white;
+            font-weight: $font-700;
+            margin: 0;
+          }
         }
         .description{
           margin: 0 $margin-lg $margin-2xl;
-          color: $neutral-light-lavender-70;
-          font-weight: $font-700;
-          text-align: center;
-          font-size: $font-sm;
+          p{
+            color: $neutral-light-lavender-70;
+            font-weight: $font-700;
+            text-align: center;
+            font-size: $font-sm;
+            margin: 0;
+          }
         }
       }
     }
@@ -257,8 +275,12 @@
 
       &-title{
         color: $neutral-dark-gray-blue;
-        font-size: $font-md;
-        font-weight: $font-800;
+        h2{
+          font-size: $font-md;
+          line-height: $font-md;
+          font-weight: $font-800;
+          margin: 0;
+        }
       }
 
       &-cards{
@@ -271,6 +293,7 @@
         align-items: center;
         width: 100%;
         gap: $padding-lg;
+        padding-inline: 0;
       }
 
       &-card{
@@ -345,6 +368,8 @@
         font-size: $font-sm;
         font-weight: $font-700;
         color: $neutral-pale-blue;
+        border: none;
+        outline: none;
         &:hover{
           @include vertical-gradient($light-slate-blue, $light-royal-blue);
         }
@@ -376,40 +401,52 @@
   </script>
 </head>
 <body class="container">
-  <div class="layout">
+  <main class="layout">
     <div class="result">
-      <div class="result-title">
+      <h1 class="result-title">
         Your Result
-      </div>
+      </h1>
       <div class="result-total">
-        <div class="total-percentage">76</div>
-        <div class="total-of">of 100</div>
+        <div class="total-percentage">
+          <h2>76</h2>
+        </div>
+        <div class="total-of">
+          <p>
+            of 100
+          </p>
+        </div>
       </div>
       <div class="result-description">
         <div class="title">
-          Great
+          <h3>
+            Great
+          </h3>
         </div>
         <div class="description">
-          You scored higher than 65% of the people who have taken these tests.
+          <p>
+            You scored higher than 65% of the people who have taken these tests.
+          </p>
         </div>
       </div>
     </div>
 
     <div class="summary">
       <div class="summary-title">
-        Summary
+        <h2>
+          Summary
+        </h2>
       </div>
 
-      <div class="summary-cards">
-      </div>
+      <ul class="summary-cards">
+      </ul>
 
 
 
-      <div class="cta">
+      <button class="cta">
         Continue
-      </div>
+      </button>
     </div>
-  </div>
+  </main>
   
   <footer class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
